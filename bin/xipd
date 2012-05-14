@@ -4,7 +4,7 @@ var xip = require('..');
 var argv = process.argv;
 
 if (argv.length < 3) {
-  console.error("usage: xip <domain> [address]");
+  console.error("usage: xipd <domain> [address]");
   process.exit(1);
 }
 
@@ -13,4 +13,4 @@ var address = argv[3] || "127.0.0.1";
 var server = xip.createServer(domain, address);
 server.bind(5300);
 
-console.log("xip listening on port 5300: domain =", domain, "address =", address);
+console.log("xipd listening on port 5300: domain =", domain, "address =", address);
