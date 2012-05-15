@@ -34,9 +34,9 @@ createSOA = (domain) ->
   dnsserver.createSOA mname, rname, serial, refresh, retry, expire, minimum
 
 matchIP = (parts) ->
-  return unless parts.length is 4
+  return if parts.length < 4
   matched = true
-  for part in parts
+  for part in parts[0...4]
     part = parseInt part, 10
     matched = false unless 0 <= part <= 255
   matched
@@ -60,8 +60,13 @@ exports.createServer = (domain, address = "127.0.0.1") ->
 
   encodeCname = (subdomain) ->
     if matchIP subdomain
-      ip = subdomain.slice(0).reverse().join "."
-      hostname = "#{exports.encode(ip)}.#{domain}"
+      name = encode subdomain.slice(0, 4).reverse().join "."
+      if subdomain.length > 4
+        rest = subdomain.slice(4).reverse().join(".") + "."
+      else
+        rest = ""
+
+      hostname = "#{rest}#{name}.#{domain}"
       dnsserver.createName hostname
 
   server.on "request", (req, res) ->
