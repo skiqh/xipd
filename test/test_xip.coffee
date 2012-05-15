@@ -60,9 +60,9 @@ module.exports =
     test.expect 1
     createServer (port, done) ->
       address = "10.0.0.2"
-      hostname = "#{xip.encode address}.xip.io."
-      digShort port, "A", "#{address}.xip.io", (result) ->
-        test.equal hostname, result
+      hostname = "#{address}.xip.io."
+      digShort port, "A", hostname, (result) ->
+        test.equal address, result
         done test.done
 
   "encoded subdomain": (test) ->
@@ -78,8 +78,8 @@ module.exports =
     test.expect 1
     createServer (port, done) ->
       address = "10.0.0.4"
-      hostname = "foo.#{xip.encode address}.xip.io."
-      digShort port, "A", "foo.#{address}.xip.io", (result) ->
-        test.equal hostname, result
+      hostname = "foo.#{address}.xip.io"
+      digShort port, "A", hostname, (result) ->
+        test.equal address, result
         done test.done
 
