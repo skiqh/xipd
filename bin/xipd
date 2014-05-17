@@ -15,4 +15,4 @@ var port = parseInt(address.split(':')[1] || '5300')
 var server = xip.createServer(domain, address);
 server.bind(port);
 
-console.log("xipd listening: domain =", domain, "address =", ip, ':', port);
+process.stdout.write('["log", "xip-daemon listening at ' + ip + ':' + port + ' @ ' + domain + '"]\n')
